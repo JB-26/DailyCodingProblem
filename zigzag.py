@@ -17,21 +17,41 @@ k = 4
 def zigzag(sentence, k):
     # get sentence length
     sentenceLength = len(sentence)
-    # get range of lines
-    rangeOfLines = range(k)
     # calculate the maximum space length
     spaceLength = (k - 1) * 2 - 1
+    # get range of lines
+    rangeOfLines = range(k)
+    # count spaces used
+    spaceCount = 0
+    # creates a list of spaces (strings)
+    line = [" " for _ in range(sentenceLength)]
     # take the string and convert to list
     listSentence = list(sentence)
-    # final string
-    zigzagString = ""
+    # check if zigzag is descending or not
+    desc = True
 
     print("Now creating a zigzag!")
     print(f"String entered - {sentence}")
     print(f"Number of lines entered = {k}")
     print(f"Based on the information provided, the maximum number of spaces will be - {spaceLength}")
 
-    # print completed string
-    print(zigzagString)
+    while spaceCount < spaceLength:
+        for character in listSentence:
+            print(line[spaceCount].join(f"{character}"))
+            spaceCount += 1
+
+# function for getting spaces
+def get_spaces(row, desc, k):
+    # calculate the maximum space length
+    spaceLength = (k - 1) * 2 - 1
+
+    # check if descending (add spaces)
+    if desc:
+        spaces = spaceLength - row + 2
+    # or if ascending (remove spaces)
+    else:
+        spaces = spaceLength - (k - 1 - row) * 2
+    
+    return spaces
 
 zigzag(sentence, k)
