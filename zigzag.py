@@ -17,28 +17,21 @@ k = 4
 def zigzag(sentence, k):
     # get sentence length
     sentenceLength = len(sentence)
-    # calculate the maximum space length
-    spaceLength = (k - 1) * 2 - 1
-    # get range of lines
-    rangeOfLines = range(k)
-    # count spaces used
-    spaceCount = 0
-    # creates a list of spaces (strings)
-    line = [" " for _ in range(sentenceLength)]
-    # take the string and convert to list
-    listSentence = list(sentence)
-    # check if zigzag is descending or not
-    desc = True
 
-    print("Now creating a zigzag!")
-    print(f"String entered - {sentence}")
-    print(f"Number of lines entered = {k}")
-    print(f"Based on the information provided, the maximum number of spaces will be - {spaceLength}")
+    for row in range(k):
+        i = row
+        # creates a list of spaces (strings)
+        line = [" " for _ in range(sentenceLength)]
 
-    while spaceCount < spaceLength:
-        for character in listSentence:
-            print(line[spaceCount].join(f"{character}"))
-            spaceCount += 1
+        # this while loop takes the list and populates it with the correct value from the sentence (on both sides of the zigzag)
+        while i < sentenceLength:
+            # check if zigzag is descending or not
+            line[i] = sentence[i]
+            desc = is_desc(i, k)
+            newSpaces = get_spaces(row, desc, k)
+            i += newSpaces + 1
+        
+        print("".join(line))
 
 # function for getting spaces
 def get_spaces(row, desc, k):
@@ -53,5 +46,11 @@ def get_spaces(row, desc, k):
         spaces = spaceLength - (k - 1 - row) * 2
     
     return spaces
+
+# function for checking if descending
+def is_desc(index, k):
+    # back to the starting point - will return true or false
+    # compares calculated result to the sentence length - 1
+    return index % (2 * (k - 1)) < k - 1
 
 zigzag(sentence, k)
