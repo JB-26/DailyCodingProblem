@@ -40,7 +40,7 @@ def get_spaces(row, desc, k):
 
     # check if descending (add spaces)
     if desc:
-        spaces = spaceLength - row + 2
+        spaces = spaceLength - row * 2
     # or if ascending (remove spaces)
     else:
         spaces = spaceLength - (k - 1 - row) * 2
