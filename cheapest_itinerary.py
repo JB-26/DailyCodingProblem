@@ -32,6 +32,24 @@ def get_itinerary(flights, source, destination, k):
     Returns the cheapest fare possible for a given journey
     """
 
+    #create new dictionary
+    prices = defaultdict(dict)
+
+    #creates dictionary of nested dictionaries
+    #the source of the flight while the key is the dictionary of the destination and price
+    for u, v, cost in flights:
+        prices[u][v] = cost
+    
+    path = [source]
+
+    heap = [(0, source, k + 1, path)]
+
+    #total cost for flight
+    total_cost = 0
+
+    #unordered collection of unique items
+    visited = set()
+
     print(f"Flights for today:\n")
     for a, b, c in flights:
         print(f"Source: {a} Destination: {b} Cost: {c}")
@@ -41,6 +59,14 @@ def get_itinerary(flights, source, destination, k):
     print(f"The destination is {destination}")
 
     print(f"The maximum ammount of connections is {k}")
+
+    print("Now finding journey...")
+
+    while heap:
+        visited.add(u)
+        #pops the smallest item from the heap
+        cost, u, k, path = heapq.heappop(heap)
+
 
 
 get_itinerary(flights, 'JFK', 'LAX', 3)
